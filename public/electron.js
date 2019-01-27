@@ -3,14 +3,22 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
 const path = require('path');
-const url = require('url');
 const isDev = require('electron-is-dev');
 
 let mainWindow;
 
+require('update-electron-app')({
+  repo: 'bogdibota/dashboard',
+  updateInterval: '1 hour'
+});
+
 function createWindow() {
-  mainWindow = new BrowserWindow({width: 900, height: 680});
-  mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
+  mainWindow = new BrowserWindow({ width: 900, height: 680 });
+  mainWindow.loadURL(
+    isDev
+      ? 'http://localhost:3000'
+      : `file://${path.join(__dirname, '../build/index.html')}`
+  );
   mainWindow.on('closed', () => mainWindow = null);
 }
 
@@ -26,4 +34,9 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+app.on('dvk*get-some-data', (cb) => {
+  console.log('dvk*get-some-data called');
+  cb("blahhhhhh");
 });
