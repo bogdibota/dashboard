@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 const { app } = window.require('electron').remote;
+const { command } = app.api;
 
 class App extends Component {
   state = {
@@ -11,11 +12,13 @@ class App extends Component {
 
   constructor() {
     super();
-    app.emit('dvk*get-some-data', (someData) => this.setState({ someData }));
+
+    app.emit(command.getAll, (someData) => {
+      this.setState({ someData });
+    });
   }
 
   render() {
-    console.log(app);
     return (
       <div className="App">
         <div className="App-header">

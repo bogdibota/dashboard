@@ -5,6 +5,9 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const isDev = require('electron-is-dev');
 
+const { default: bindListeners } = require('./src');
+const api = require('./api');
+
 let mainWindow;
 
 require('update-electron-app')({
@@ -36,7 +39,5 @@ app.on('activate', () => {
   }
 });
 
-app.on('dvk*get-some-data', (cb) => {
-  console.log('dvk*get-some-data called');
-  cb("blahhhhhh");
-});
+app.api = api; // 🔥🛠️
+bindListeners(app);
