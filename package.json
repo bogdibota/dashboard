@@ -9,8 +9,13 @@
     "cross-env": "5.1.6",
     "electron-is-dev": "^1.0.1",
     "electron-log": "^2.2.6",
+    "lodash": "^4.17.11",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^1.0.0",
     "update-electron-app": "^1.2.0"
   },
   "devDependencies": {
@@ -24,14 +29,14 @@
   "main": "public/electron.js",
   "homepage": "./",
   "scripts": {
-    "react-start": "react-scripts start",
+    "react-start": "cross-env BROWSER=none react-scripts start",
     "react-build": "react-scripts build",
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
     "electron": "electron .",
     "build": "yarn react-build && yarn electron-build",
-    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
+    "start": "concurrently \"yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
     "extends": "react-app"

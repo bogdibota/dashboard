@@ -1,5 +1,7 @@
+const { getStore } = require('./store');
+
 module.exports = {
     getAll: async () => {
-        return 'test ami pwp';
+        return (await getStore()).commands;
     },
 };
