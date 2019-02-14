@@ -30,15 +30,20 @@
   "homepage": "./",
   "scripts": {
     "react-start": "cross-env BROWSER=none react-scripts start",
-    "react-start-web": "cross-env REACT_APP_TARGET=web react-scripts start",
     "react-build": "react-scripts build",
-    "react-build-web": "cross-env REACT_APP_TARGET=web react-scripts build",
     "react-test": "react-scripts test",
-    "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
     "electron": "electron .",
-    "build": "yarn react-build && yarn electron-build",
-    "start": "concurrently \"yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
+    "build": "cross-env CI=true react-scripts test && yarn react-build && yarn electron-build",
+    "start": "concurrently \"yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
+
+    "react-start-web": "cross-env REACT_APP_TARGET=web PORT=3001 react-scripts start",
+    "react-build-web": "cross-env REACT_APP_TARGET=web react-scripts build"
+  },
+  "build": {
+    "publish": {
+      "provider": "github"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
