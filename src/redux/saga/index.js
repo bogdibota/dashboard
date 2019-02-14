@@ -4,8 +4,8 @@ import command from './command';
 import startup from './startup';
 
 export default function* root() {
-    yield all([
-        fork(command),
-        fork(startup),
-    ]);
+  yield all([
+    fork(command),
+    fork(startup),
+  ]);
 }

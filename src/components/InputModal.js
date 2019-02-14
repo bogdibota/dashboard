@@ -8,67 +8,67 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const initialState = {
-    obj: {},
+  obj: {},
 };
 
 class InputModal extends Component {
-    state = initialState;
+  state = initialState;
 
-    updateProperty = (property) => ({ target: { value } }) => {
-        this.setState(({ obj }) => ({
-            obj: {
-                ...obj,
-                [property]: value,
-            },
-        }));
-    };
+  updateProperty = (property) => ({target: {value}}) => {
+    this.setState(({obj}) => ({
+      obj: {
+        ...obj,
+        [property]: value,
+      },
+    }));
+  };
 
-    renderInputField({ name, label }) {
-        return (
-            <TextField
-                autoFocus
-                margin="dense"
-                fullWidth
-                key={`InputModal-${name}`}
-                label={label}
-                value={this.state.obj[name] || ''}
-                onChange={this.updateProperty(name)}
-            />
-        );
-    }
+  renderInputField({name, label}) {
+    return (
+      <TextField
+        autoFocus
+        margin="dense"
+        fullWidth
+        key={ `InputModal-${ name }` }
+        label={ label }
+        value={ this.state.obj[name] || '' }
+        onChange={ this.updateProperty(name) }
+      />
+    );
+  }
 
-    handleClose = () => {
-        this.props.handleClose();
-        this.setState(initialState);
-    }
+  handleClose = () => {
+    this.props.handleClose();
+    this.setState(initialState);
+  };
 
-    render() {
-        const { open, handleSave, title, text, fields } = this.props;
-        const { obj } = this.state;
-        return (
-            <Dialog
-                open={open}
-                onClose={this.handleClose}
-                aria-labelledby="form-dialog-title"
-                fullWidth
-                maxWidth="sm"
-            >
-                <DialogTitle id="form-dialog-title">{title}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>{text}</DialogContentText>
-                    {fields.map(({ name, label }) => this.renderInputField({ name, label }))}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.handleClose}>
-                        Cancel
-                    </Button>
-                    <Button onClick={() => handleSave(obj) + this.handleClose()} color="primary">
-                        OK
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        );
-    }
+  render() {
+    const {open, handleSave, title, text, fields} = this.props;
+    const {obj} = this.state;
+    return (
+      <Dialog
+        open={ open }
+        onClose={ this.handleClose }
+        aria-labelledby="form-dialog-title"
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle id="form-dialog-title">{ title }</DialogTitle>
+        <DialogContent>
+          <DialogContentText>{ text }</DialogContentText>
+          { fields.map(({name, label}) => this.renderInputField({name, label})) }
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={ this.handleClose }>
+            Cancel
+          </Button>
+          <Button onClick={ () => handleSave(obj) + this.handleClose() } color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
 }
 
 export default InputModal;

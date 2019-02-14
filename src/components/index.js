@@ -1,1 +1,1 @@
-export { default as CommandTree } from "./commandTree/Tree";
+export { default as CommandTree } from './commandTree/Tree';

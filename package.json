@@ -30,7 +30,9 @@
   "homepage": "./",
   "scripts": {
     "react-start": "cross-env BROWSER=none react-scripts start",
+    "react-start-web": "cross-env REACT_APP_TARGET=web react-scripts start",
     "react-build": "react-scripts build",
+    "react-build-web": "cross-env REACT_APP_TARGET=web react-scripts build",
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",

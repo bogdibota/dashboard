@@ -1,17 +1,17 @@
-import { all, takeEvery, call, put, select } from 'redux-saga/effects';
+import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 import { command } from '../action';
-import { getAllCommands, createCommand } from './api';
+import { createCommand, getAllCommands } from './api';
 
 function* getAll() {
   const commands = yield call(getAllCommands);
-  yield put(command.getAll.complete.create({ commands }));
+  yield put(command.getAll.complete.create({commands}));
 }
 
-function* create({ isFolder, name }) {
-  const selectedCommand = (yield select(({ command: { selectedCommand } }) => selectedCommand)) || { id: 'ROOT' };
-  const result = yield call(createCommand, { isFolder, name, parent: selectedCommand.id });
+function* create({isFolder, name}) {
+  const selectedCommand = (yield select(({command: {selectedCommand}}) => selectedCommand)) || {id: 'ROOT'};
+  const result = yield call(createCommand, {isFolder, name, parent: selectedCommand.id});
   if (result.error) {
-    yield put(command.create.error.create({ errorMessage: 'Error while adding command.' }));
+    yield put(command.create.error.create({errorMessage: 'Error while adding command.'}));
   } else {
     yield put(command.create.complete.create());
   }

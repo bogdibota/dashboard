@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -12,8 +12,8 @@ import { command } from './redux/action';
 
 import styles from './App.styles';
 
-const mapStateToProps = ({ command: { commands, selectedCommand, errorMessage } }) => ({
-  commands, selectedCommand, errorMessage
+const mapStateToProps = ({command: {commands, selectedCommand, errorMessage}}) => ({
+  commands, selectedCommand, errorMessage,
 });
 
 const mapDispatchToProps = dispatch =>
@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch =>
       createCommand: command.create.emit.create,
       selectCommand: command.select.emit.create,
       clearError: command.clearError.emit.create,
-    }, dispatch)
+    }, dispatch),
   });
 
 class App extends Component {
@@ -34,48 +34,45 @@ class App extends Component {
   }
 
   handleCreate(isFolder, name) {
-    const { actions: { createCommand } } = this.props;
-    createCommand({ isFolder, name });
+    const {actions: {createCommand}} = this.props;
+    createCommand({isFolder, name});
   }
-
 
   render() {
     const {
       classes, commands, selectedCommand, errorMessage,
-      actions: { selectCommand, clearError }
+      actions: {selectCommand, clearError},
     } = this.props;
     return (
-      <Grid container className={classes.root}>
-        <Grid item xs={4} className={classes.leftPanel}>
+      <Grid container className={ classes.root }>
+        <Grid item xs={ 4 } className={ classes.leftPanel }>
           <CommandTree
-            commands={commands}
-            onCreateCommand={this.handleCreateCommand}
-            onCreateFolder={this.handleCreateFolder}
-            onSelectCommand={(child, id) => selectCommand({ selectedCommand: { ...child, id } })}
+            commands={ commands }
+            onCreateCommand={ this.handleCreateCommand }
+            onCreateFolder={ this.handleCreateFolder }
+            onSelectCommand={ (child, id) => selectCommand({selectedCommand: {...child, id}}) }
           />
         </Grid>
-        <Grid item xs={8} className={classes.rightPanel}>
-          {selectedCommand ? (
+        <Grid item xs={ 8 } className={ classes.rightPanel }>
+          { selectedCommand ? (
             <div>
-              <Button variant="contained" onClick={() => selectCommand()} className={classes.leftIcon}>
-                <CloseIcon className={classes.leftIcon} />
+              <Button variant="contained" onClick={ () => selectCommand() } className={ classes.leftIcon }>
+                <CloseIcon className={ classes.leftIcon }/>
                 Deselect
               </Button>
-              {selectedCommand.label}
+              { selectedCommand.label }
             </div>
-
-          ) : 'No command selected'}
-
+          ) : 'No command selected' }
         </Grid>
         <Snackbar
-          anchorOrigin={{
+          anchorOrigin={ {
             vertical: 'bottom',
             horizontal: 'center',
-          }}
-          open={!!errorMessage}
-          autoHideDuration={6000}
-          onClose={clearError}
-          message={errorMessage}
+          } }
+          open={ !!errorMessage }
+          autoHideDuration={ 6000 }
+          onClose={ clearError }
+          message={ errorMessage }
         />
       </Grid>
     );
