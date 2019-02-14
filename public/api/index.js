@@ -4,5 +4,6 @@ const commandPrefix = 'command*';
 module.exports = {
     command: {
         getAll: `${prefix}${commandPrefix}getAll`,
+        create: `${prefix}${commandPrefix}create`,
     }
 };
