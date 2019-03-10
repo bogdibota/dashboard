@@ -7,7 +7,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { CommandTree } from './components';
+import { CommandTree, CommandViewEdit } from './components';
 import { command } from './redux/action';
 
 import styles from './App.styles';
@@ -55,13 +55,17 @@ class App extends Component {
         </Grid>
         <Grid item xs={ 8 } className={ classes.rightPanel }>
           { selectedCommand ? (
-            <div>
-              <Button variant="contained" onClick={ () => selectCommand() } className={ classes.leftIcon }>
-                <CloseIcon className={ classes.leftIcon }/>
-                Deselect
-              </Button>
-              { selectedCommand.label }
-            </div>
+            selectedCommand.children ? (
+              <div>
+                <Button variant="contained" onClick={ () => selectCommand() } className={ classes.leftIcon }>
+                  <CloseIcon className={ classes.leftIcon }/>
+                  Deselect
+                </Button>
+                { selectedCommand.label }
+              </div>
+            ) : (
+              <CommandViewEdit command={ selectedCommand }/>
+            )
           ) : 'No command selected' }
         </Grid>
         <Snackbar

@@ -10,7 +10,7 @@ export default theme => ({
     marginRight: theme.spacing.unit,
   },
   rightPanel: {
-    backgroundColor: 'azure',
-    padding: theme.spacing.unit,
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
