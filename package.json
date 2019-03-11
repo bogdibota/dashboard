@@ -2,7 +2,8 @@
   "name": "dashboard",
   "author": "Bogdan Bota",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
+  "private": false,
   "dependencies": {
     "@material-ui/core": "^3.9.1",
     "@material-ui/icons": "^3.0.2",
@@ -34,6 +35,7 @@
     "react-test": "react-scripts test",
     "electron-build": "electron-builder",
     "electron": "electron .",
+    "publish": "cross-env CI=true react-scripts test && yarn react-build && yarn electron-build --publish=always",
     "build": "cross-env CI=true react-scripts test && yarn react-build && yarn electron-build",
     "start": "concurrently \"yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
 
