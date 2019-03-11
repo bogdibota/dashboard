@@ -6,4 +6,5 @@ export default {
   ...createActions(moduleName, 'create'),
   ...createActions(moduleName, 'select'),
   ...createActions(moduleName, 'clearError'),
+  ...createActions(moduleName, 'update'),
 };

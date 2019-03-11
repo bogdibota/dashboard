@@ -10,6 +10,16 @@ const injectChild /* **TRIGGER** ANTI-VAX moms */ = (command, idUntilNow, childT
   }
 };
 
+const updateCommand = (command, idUntilNow, mutateCommand, commandId) => {
+  const newId = `${ idUntilNow }*${ command.id || command.label }`;
+  if (newId === commandId) {
+    mutateCommand(command);
+  } else {
+    command.children && command.children
+      .forEach(child => updateCommand(child, newId, mutateCommand, commandId));
+  }
+};
+
 module.exports = {
   getAll: async () => {
     return (await getStore()).commands;
@@ -20,6 +30,17 @@ module.exports = {
     isFolder && (childToAdd.children = []);
 
     injectChild(store.commands, '', childToAdd, `*${ parent }`);
+
+    await saveStore(store);
+    return true;
+  },
+  update: async ({label, action, id}) => {
+    const store = (await getStore());
+
+    updateCommand(store.commands, '', (command) => {
+      command.label = label;
+      command.action = action;
+    }, `*${ id }`);
 
     await saveStore(store);
     return true;

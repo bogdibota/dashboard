@@ -5,5 +5,6 @@ module.exports = {
     command: {
         getAll: `${prefix}${commandPrefix}getAll`,
         create: `${prefix}${commandPrefix}create`,
+        update: `${prefix}${commandPrefix}update`,
     }
 };

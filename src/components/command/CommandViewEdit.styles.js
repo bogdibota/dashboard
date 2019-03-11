@@ -1,6 +1,7 @@
 export default theme => ({
   mainWindow: {
     flex: 1,
+    padding: theme.spacing.unit,
   },
   footerBar: {
     backgroundColor: 'azure',
@@ -11,5 +12,11 @@ export default theme => ({
   },
   button: {
     marginRight: theme.spacing.unit,
+  },
+});
+
+export const editFormStyles =  theme => ({
+  root: {
+    width: '100%',
   },
 });

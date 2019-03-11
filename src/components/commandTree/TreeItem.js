@@ -20,7 +20,7 @@ class TreeItem extends Component {
       </div>,
       ...(command.children || []).map((childCommand, idx) => (
         <TreeItemWithStyles command={ childCommand } key={ `childCommand-${ idx }` } indent={ indent + 1 }
-                            onSelectCommand={ (child, idIntillNow) => onSelectCommand(child, `${ command.id || command.label }*${ idIntillNow }`) }
+                            onSelectCommand={ (child, idUntilNow) => onSelectCommand(child, `${ command.id || command.label }*${ idUntilNow }`) }
         />
       )),
     ]);

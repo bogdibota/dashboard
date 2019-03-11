@@ -1,6 +1,6 @@
 import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 import { command } from '../action';
-import { createCommand, getAllCommands } from './api';
+import { createCommand, getAllCommands, updateCommand } from './api';
 
 function* getAll() {
   const commands = yield call(getAllCommands);
@@ -17,10 +17,32 @@ function* create({isFolder, name}) {
   }
 }
 
+function* update({label, action, id}) {
+  const selectedCommand = (yield select(({command: {selectedCommand}}) => selectedCommand)) || {id: 'ROOT'};
+  const result = yield call(updateCommand, {label, action, id});
+  if (result.error) {
+    yield put(command.update.error.create({errorMessage: 'Error while updating command.'}));
+  } else {
+    yield put(command.update.complete.create());
+
+    const idFragments = id.split('*');
+    const newSelectedCommand = {
+      ...selectedCommand,
+      label,
+      action,
+      id: [ ...idFragments.slice(0, idFragments.length - 2), label ].join('*'),
+    };
+
+    yield put(command.select.emit.create({selectedCommand: newSelectedCommand}));
+  }
+}
+
 export default function* userSagas() {
   yield all([
     takeEvery(command.getAll.emit.id, getAll),
     takeEvery(command.create.complete.id, getAll),
     takeEvery(command.create.emit.id, create),
+    takeEvery(command.update.emit.id, update),
+    takeEvery(command.update.complete.id, getAll),
   ]);
 }
