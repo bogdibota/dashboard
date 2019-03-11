@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch =>
       selectCommand: command.select.emit.create,
       clearError: command.clearError.emit.create,
       updateCommand: command.update.emit.create,
+      runCommand: command.run.emit.create,
     }, dispatch),
   });
 
@@ -42,7 +43,7 @@ class App extends Component {
   render() {
     const {
       classes, commands, selectedCommand, errorMessage,
-      actions: {selectCommand, clearError, updateCommand},
+      actions: {selectCommand, clearError, updateCommand, runCommand},
     } = this.props;
     return (
       <Grid container className={ classes.root }>
@@ -65,7 +66,11 @@ class App extends Component {
                 { selectedCommand.label }
               </div>
             ) : (
-              <CommandViewEdit command={ selectedCommand } onUpdateCommand={ updateCommand }/>
+              <CommandViewEdit
+                command={ selectedCommand }
+                onUpdateCommand={ updateCommand }
+                onRunCommand={runCommand}
+              />
             )
           ) : 'No command selected' }
         </Grid>

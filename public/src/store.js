@@ -2,6 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const app = require('electron').app;
 
+const afs = require('./afs');
+
+const dataFolder = path.join(app.getPath('userData'), 'data');
+const storeFile = path.join(dataFolder, 'store.json');
+
 const DEFAULT_STORE = {
   commands: {
     id: 'ROOT',
@@ -19,8 +24,6 @@ const DEFAULT_STORE = {
 };
 
 const getStore = async () => {
-  const dataFolder = path.join(app.getPath('userData'), 'data');
-  const storeFile = path.join(dataFolder, 'store.json');
   try {
     return await new Promise((resolve, reject) => fs.readFile(
       storeFile,
@@ -29,16 +32,8 @@ const getStore = async () => {
     ));
   } catch (ex) {
     if (ex.code === 'ENOENT') {
-      await new Promise((resolve, reject) => fs.mkdir(
-        dataFolder,
-        {recursive: true},
-        (err) => err && err.code !== 'EEXIST' ? reject(err) : resolve(),
-      ));
-      await new Promise((resolve, reject) => fs.writeFile(
-        storeFile,
-        JSON.stringify(DEFAULT_STORE),
-        (err) => err ? reject(err) : resolve(),
-      ));
+      await afs.mkdir(dataFolder);
+      await afs.writeFile(storeFile, JSON.stringify(DEFAULT_STORE));
       return DEFAULT_STORE;
     }
     console.error(ex);
@@ -47,14 +42,7 @@ const getStore = async () => {
 };
 
 const saveStore = async (newStore) => {
-  const dataFolder = path.join(app.getPath('userData'), 'data');
-  const storeFile = path.join(dataFolder, 'store.json');
-
-  await new Promise((resolve, reject) => fs.writeFile(
-    storeFile,
-    JSON.stringify(newStore),
-    (err) => err ? reject(err) : resolve(),
-  ));
+  await afs.writeFile(storeFile, JSON.stringify(newStore));
 };
 
 module.exports = {

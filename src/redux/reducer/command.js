@@ -19,11 +19,14 @@ export default function reducer(state = initialState, action) {
         ...state,
         selectedCommand,
       };
+
+    case command.run.error.id:
     case command.create.error.id:
       return {
         ...state,
         errorMessage,
       };
+
     case command.clearError.emit.id:
       return {
         ...state,

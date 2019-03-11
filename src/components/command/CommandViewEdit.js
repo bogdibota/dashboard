@@ -79,7 +79,7 @@ class CommandViewEdit extends Component {
   };
 
   render() {
-    const {classes, command} = this.props;
+    const {classes, command, onRunCommand} = this.props;
     const {isEdit, commandToEdit} = this.state;
     return (
       <Fragment>
@@ -92,7 +92,7 @@ class CommandViewEdit extends Component {
         </Grid>
         <Grid container className={ classes.footerBar }>
           { !isEdit && <Grid item xs="auto">
-            <Button variant="contained" color="secondary" onClick={ () => null }>
+            <Button variant="contained" color="secondary" onClick={ () => onRunCommand({id: command.id}) }>
               <PlayIcon className={ classes.iconButton }/>
               Run
             </Button>

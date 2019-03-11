@@ -1,6 +1,6 @@
 import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 import { command } from '../action';
-import { createCommand, getAllCommands, updateCommand } from './api';
+import { createCommand, getAllCommands, runCommand, updateCommand } from './api';
 
 function* getAll() {
   const commands = yield call(getAllCommands);
@@ -37,12 +37,25 @@ function* update({label, action, id}) {
   }
 }
 
+function* run({id}) {
+  const result = yield call(runCommand, {id});
+  if (result.error) {
+    yield put(command.run.error.create({errorMessage: `Error while running command: ${ result.error }`}));
+  } else {
+    yield put(command.run.complete.create());
+  }
+}
+
 export default function* userSagas() {
   yield all([
     takeEvery(command.getAll.emit.id, getAll),
+
     takeEvery(command.create.complete.id, getAll),
     takeEvery(command.create.emit.id, create),
+
     takeEvery(command.update.emit.id, update),
     takeEvery(command.update.complete.id, getAll),
+
+    takeEvery(command.run.emit.id, run),
   ]);
 }
