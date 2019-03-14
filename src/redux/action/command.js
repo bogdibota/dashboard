@@ -8,4 +8,5 @@ export default {
   ...createActions(moduleName, 'clearError'),
   ...createActions(moduleName, 'update'),
   ...createActions(moduleName, 'run'),
+  ...createActions(moduleName, 'statusChange'),
 };

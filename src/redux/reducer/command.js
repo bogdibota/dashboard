@@ -2,12 +2,13 @@ import { command } from '../action';
 
 const initialState = {
   commands: {children: []},
+  status: {},
   selectedCommand: undefined,
   errorMessage: undefined,
 };
 
 export default function reducer(state = initialState, action) {
-  const {type, commands, selectedCommand, errorMessage} = action;
+  const {type, commands, selectedCommand, errorMessage, id, newStatus} = action;
   switch (type) {
     case command.getAll.complete.id:
       return {
@@ -31,6 +32,15 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         errorMessage: undefined,
+      };
+
+    case command.statusChange.emit.id:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          [id]: newStatus,
+        },
       };
     default:
       return state;

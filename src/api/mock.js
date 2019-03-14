@@ -35,7 +35,6 @@ export const createCommand = async ({isFolder, name, parent}) => {
   return true;
 };
 
-export const updateCommand = async () => {
-};
-export const runCommand = async () => {
-};
+export const updateCommand = async () => null;
+export const runCommand = async () => null;
+export const onStatusChange = () => null;

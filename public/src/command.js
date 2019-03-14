@@ -60,12 +60,12 @@ module.exports = {
     await saveStore(store);
     return true;
   },
-  run: async ({id}) => {
+  run: async ({id}, {onStatusChange}) => {
     const store = (await getStore());
 
     const {action} = getCommand(store.commands, '', `*${ id }`)[0];
     if (!action) throw new Error(`No action for command ${ id }`);
-    await runAction(id, action);
+    await runAction(id, action, onStatusChange);
 
     return true;
   },

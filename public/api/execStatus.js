@@ -1,0 +1,7 @@
+module.exports = {
+  RUNNING: 'RUNNING',
+  INFO: 'INFO',
+  ERROR: 'ERROR',
+  DONE_SUCCESS: 'DONE_SUCCESS',
+  DONE_ERROR: 'DONE_ERROR',
+};
