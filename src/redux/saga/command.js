@@ -1,6 +1,6 @@
 import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 import { command } from '../action';
-import { createCommand, getAllCommands, runCommand, updateCommand } from './api';
+import { createCommand, getAllCommands, runCommand, updateCommand, deleteCommand } from './api';
 
 function* getAll() {
   const commands = yield call(getAllCommands);
@@ -46,6 +46,21 @@ function* run({id}) {
   }
 }
 
+function* remove({id}) {
+  const parent = yield call(deleteCommand, {id});
+
+  if (parent.error) {
+    yield put(command.delete.error.create({errorMessage: `Error while deleting command: ${ parent.error }`}));
+  } else {
+    yield put(command.delete.complete.create());
+  }
+  if(parent.id && parent.id === 'ROOT'){
+    yield put(command.select.emit.create({selectedCommand: null}));
+  } else {
+    yield put(command.select.emit.create({selectedCommand: parent}));
+  }
+}
+
 export default function* userSagas() {
   yield all([
     takeEvery(command.getAll.emit.id, getAll),
@@ -57,5 +72,8 @@ export default function* userSagas() {
     takeEvery(command.update.complete.id, getAll),
 
     takeEvery(command.run.emit.id, run),
+
+    takeEvery(command.delete.emit.id, remove),
+    takeEvery(command.delete.complete.id, getAll),
   ]);
 }

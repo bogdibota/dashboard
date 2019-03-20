@@ -4,6 +4,7 @@ const {
   create: commandCreate,
   update: commandUpdate,
   run: commandRun,
+  delete: commandDelete,
 } = require('./command');
 
 const toCb = (promise, actions) => (cb, args) => promise(args, actions)
@@ -19,5 +20,6 @@ module.exports = {
     app.on(commandApi.run, toCb(commandRun, {
       onStatusChange: (args) => app.emit(commandApi.onStatusChange, args),
     }));
+    app.on(commandApi.delete, toCb(commandDelete));
   },
 };

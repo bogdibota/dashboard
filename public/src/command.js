@@ -21,6 +21,19 @@ const findCommand = (command, idUntilNow, mutateCommand, commandId) => {
   }
 };
 
+const removeCommand = (command, commandId) => {
+  let path = commandId.split('*');
+  const label = path.pop();
+  const parentFullPath = path.reduce((acc, it) => acc + '*' + it);
+  path.shift();
+  let parentCommand = command;
+  path.forEach((command) => {
+    parentCommand = parentCommand.children.find(x => x.label === command);
+  });
+  parentCommand.children = parentCommand.children.filter(x => x.label !== label);
+  return {...parentCommand, id: parentFullPath};
+};
+
 const getCommand = (command, idUntilNow, commandId) => {
   const newId = `${ idUntilNow }*${ command.id || command.label }`;
   if (newId === commandId) {
@@ -68,5 +81,13 @@ module.exports = {
     await runAction(id, action, onStatusChange);
 
     return true;
+  },
+  delete: async ({id}) => {
+    const store = (await getStore());
+
+    const parent = removeCommand(store.commands,  id);
+
+    await saveStore(store);
+    return parent;
   },
 };

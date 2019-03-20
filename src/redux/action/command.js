@@ -9,4 +9,5 @@ export default {
   ...createActions(moduleName, 'update'),
   ...createActions(moduleName, 'run'),
   ...createActions(moduleName, 'statusChange'),
+  ...createActions(moduleName, 'delete'),
 };

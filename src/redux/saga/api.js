@@ -6,3 +6,4 @@ export const getAllCommands = withApi('getAllCommands');
 export const createCommand = withApi('createCommand');
 export const updateCommand = withApi('updateCommand');
 export const runCommand = withApi('runCommand');
+export const deleteCommand = withApi('deleteCommand');

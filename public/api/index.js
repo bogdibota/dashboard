@@ -10,6 +10,7 @@ module.exports = {
     create: `${ prefix }${ commandPrefix }create`,
     update: `${ prefix }${ commandPrefix }update`,
     run: `${ prefix }${ commandPrefix }run`,
+    delete: `${ prefix }${ commandPrefix }delete`,
 
     // electron to react
     onStatusChange: `${ prefix }${ commandPrefix }onStatusChange`,

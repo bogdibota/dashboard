@@ -11,6 +11,7 @@
     "electron-is-dev": "^1.0.1",
     "electron-log": "^2.2.6",
     "lodash": "^4.17.11",
+    "prop-types": "^15.7.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
@@ -38,7 +39,6 @@
     "publish": "cross-env CI=true react-scripts test && yarn react-build && yarn electron-build --publish=always",
     "build": "cross-env CI=true react-scripts test && yarn react-build && yarn electron-build",
     "start": "concurrently \"yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
-
     "react-start-web": "cross-env REACT_APP_TARGET=web PORT=3001 react-scripts start",
     "react-build-web": "cross-env REACT_APP_TARGET=web react-scripts build"
   },

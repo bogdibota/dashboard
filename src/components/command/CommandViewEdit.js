@@ -4,10 +4,12 @@ import { Button, Grid, TextField, withStyles } from '@material-ui/core';
 import PlayIcon from '@material-ui/icons/PlayArrow';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Check';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import ViewForm from './ViewFrom';
 
 import styles, { editFormStyles } from './CommandViewEdit.styles';
+import * as PropTypes from 'prop-types';
 
 
 class EditForm extends Component {
@@ -69,6 +71,10 @@ class CommandViewEdit extends Component {
     this.toggleEditState();
   };
 
+  openConfirmation = () => {
+    this.props.openConfirmation();
+  };
+
   handleCommandEdit = (fieldName) => (newValue) => {
     this.setState(({commandToEdit}) => ({
       commandToEdit: {
@@ -91,12 +97,17 @@ class CommandViewEdit extends Component {
           ) }
         </Grid>
         <Grid container className={ classes.footerBar }>
-          { !isEdit && <Grid item xs="auto">
+          { !isEdit ? <Grid item xs="auto">
             <Button variant="contained" color="secondary" onClick={ () => onRunCommand({id: command.id}) }>
               <PlayIcon className={ classes.iconButton }/>
               Run
             </Button>
-          </Grid> }
+          </Grid> :
+          <Button variant="contained" color="secondary" className={ classes.button }
+                  onClick={ this.openConfirmation }>
+            <DeleteIcon className={classes.iconButton} />
+            Delete
+          </Button> }
           <Grid item xs/>
           <Grid item xs="auto">
             { isEdit ? <Fragment>
@@ -120,5 +131,13 @@ class CommandViewEdit extends Component {
     );
   }
 }
+
+CommandViewEdit.propTypes = {
+  command: PropTypes.object,
+  onUpdateCommand: PropTypes.func,
+  onRunCommand: PropTypes.func,
+  onDeleteCommand: PropTypes.func,
+  openConfirmation: PropTypes.func,
+};
 
 export default withStyles(styles)(CommandViewEdit);

@@ -37,4 +37,5 @@ export const createCommand = async ({isFolder, name, parent}) => {
 
 export const updateCommand = async () => null;
 export const runCommand = async () => null;
+export const deleteCommand = async () => null;
 export const onStatusChange = () => null;
