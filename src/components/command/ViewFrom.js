@@ -3,6 +3,7 @@ import { Paper, Tab, Tabs, Typography, withStyles } from '@material-ui/core';
 
 import styles from './ViewForm.styles';
 import StatusTab from './tabs/StatusTab';
+import LogsTab from './tabs/LogsTab';
 
 class ViewForm extends Component {
   state = {
@@ -14,7 +15,7 @@ class ViewForm extends Component {
   };
 
   render() {
-    const {command, classes, status} = this.props;
+    const {command, classes, status, logs} = this.props;
     const {value} = this.state;
     return (
       <div className={ classes.root }>
@@ -34,7 +35,7 @@ class ViewForm extends Component {
             <Tab label="Settings"/>
           </Tabs>
           { value === 0 && <div className={ classes.tabContainer }><StatusTab commandId={ command.id } status={ status }/></div> }
-          { value === 1 && <div className={ classes.tabContainer }>Logs tab</div> }
+          { value === 1 && <div className={ classes.tabContainer }><LogsTab commandId={ command.id } logs={ logs }/></div> }
           { value === 2 && <div className={ classes.tabContainer }>Settings tab</div> }
         </Paper>
       </div>

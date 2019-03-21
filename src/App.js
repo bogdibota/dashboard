@@ -14,8 +14,8 @@ import styles from './App.styles';
 import ConfirmationModal from './components/ConfirmationModal';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const mapStateToProps = ({command: {commands, selectedCommand, errorMessage, status}}) => ({
-  commands, selectedCommand, errorMessage, status
+const mapStateToProps = ({command: {commands, selectedCommand, errorMessage, status, logs}}) => ({
+  commands, selectedCommand, errorMessage, status, logs
 });
 
 const mapDispatchToProps = dispatch =>
@@ -66,7 +66,7 @@ class App extends Component {
 
   render() {
     const {
-      classes, commands, selectedCommand, errorMessage, status,
+      classes, commands, selectedCommand, errorMessage, status, logs,
       actions: {selectCommand, clearError, updateCommand, runCommand, deleteCommand},
     } = this.props;
     const { modalOpen } = this.state;
@@ -104,6 +104,7 @@ class App extends Component {
                 onDeleteCommand={ deleteCommand }
                 openConfirmation={ this.handleModalOpen('confirmation') }
                 status = { status }
+                logs = { logs }
               />
             )
           ) : 'No command selected' }

@@ -21,12 +21,12 @@ module.exports = {
     onStatusChange({id, status: execStatus.RUNNING});
 
     commandProc.stdout.on('data', (data) => {
-      onStatusChange({id, status: execStatus.INFO, data});
+      onStatusChange({id, status: execStatus.INFO, data: data.toString()});
       console.log(`stdout: ${ data }`);
     });
 
     commandProc.stderr.on('data', (data) => {
-      onStatusChange({id, status: execStatus.ERROR, data});
+      onStatusChange({id, status: execStatus.ERROR, data: data.toString()});
       console.log(`stderr: ${ data }`);
     });
 

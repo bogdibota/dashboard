@@ -85,7 +85,7 @@ class CommandViewEdit extends Component {
   };
 
   render() {
-    const {classes, command, onRunCommand, status} = this.props;
+    const {classes, command, onRunCommand, status, logs} = this.props;
     const {isEdit, commandToEdit} = this.state;
     return (
       <Fragment>
@@ -93,7 +93,7 @@ class CommandViewEdit extends Component {
           { isEdit ? (
             <EditFormWithStyles command={ commandToEdit } handleCommandEdit={ this.handleCommandEdit }/>
           ) : (
-            <ViewForm command={ command } status={ status }/>
+            <ViewForm command={ command } status={ status } logs = { logs } />
           ) }
         </Grid>
         <Grid container className={ classes.footerBar }>

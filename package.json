@@ -18,6 +18,7 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.0",
+    "strip-ansi": "^5.2.0",
     "update-electron-app": "^1.2.0"
   },
   "devDependencies": {

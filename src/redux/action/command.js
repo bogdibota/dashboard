@@ -10,4 +10,5 @@ export default {
   ...createActions(moduleName, 'run'),
   ...createActions(moduleName, 'statusChange'),
   ...createActions(moduleName, 'delete'),
+  ...createActions(moduleName, 'logsChange'),
 };
