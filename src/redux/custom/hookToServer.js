@@ -5,7 +5,7 @@ const onStatusChange = async (args) => (await loadApi()).onStatusChange(args);
 
 export default function (store) {
   onStatusChange(({id, status}) => {
-    if (status !== 'INFO') {
+    if (status !== 'INFO' && status !== 'ERROR') {
       store.dispatch(command.statusChange.emit.create({id, newStatus: status}));
     }
   })

@@ -27,7 +27,7 @@ class CommandTree extends Component {
   };
 
   render() {
-    const {classes, commands, onCreateCommand, onCreateFolder, onSelectCommand} = this.props;
+    const {classes, commands, onCreateCommand, onCreateFolder, onSelectCommand, status} = this.props;
     const {modalOpen, isFolder} = this.state;
     return ([
       <Grid container className={ classes.root } key="grid">
@@ -49,7 +49,7 @@ class CommandTree extends Component {
             </Grid>
           </Grid>
           <Grid container className={ classes.tree }>
-            <TreeItem command={ commands } onSelectCommand={ onSelectCommand }/>
+            <TreeItem command={ commands } onSelectCommand={ onSelectCommand } status = { status }/>
           </Grid>
         </Grid>
       </Grid>,
