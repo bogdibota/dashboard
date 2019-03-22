@@ -62,12 +62,13 @@ module.exports = {
     await saveStore(store);
     return true;
   },
-  update: async ({label, action, id}) => {
+  update: async ({label, action, runArgs, id}) => {
     const store = (await getStore());
 
     findCommand(store.commands, '', (command) => {
       command.label = label;
       command.action = action;
+      command.runArgs = runArgs;
     }, `*${ id }`);
 
     await saveStore(store);
@@ -76,9 +77,9 @@ module.exports = {
   run: async ({id}, {onStatusChange}) => {
     const store = (await getStore());
 
-    const {action} = getCommand(store.commands, '', `*${ id }`)[0];
+    const {action, runArgs} = getCommand(store.commands, '', `*${ id }`)[0];
     if (!action) throw new Error(`No action for command ${ id }`);
-    await runAction(id, action, onStatusChange);
+    await runAction(id, action, runArgs, onStatusChange);
 
     return true;
   },

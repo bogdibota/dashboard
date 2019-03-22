@@ -84,6 +84,10 @@ class CommandViewEdit extends Component {
     }));
   };
 
+  handleOneStepEdit = (field) => (value) => {
+    this.props.onUpdateCommand({...this.props.command, [field]: value});
+  };
+
   render() {
     const {classes, command, onRunCommand, status, logs} = this.props;
     const {isEdit, commandToEdit} = this.state;
@@ -93,7 +97,7 @@ class CommandViewEdit extends Component {
           { isEdit ? (
             <EditFormWithStyles command={ commandToEdit } handleCommandEdit={ this.handleCommandEdit }/>
           ) : (
-            <ViewForm command={ command } status={ status } logs = { logs } />
+            <ViewForm command={ command } status={ status } logs = { logs } handleEdit={ this.handleOneStepEdit } />
           ) }
         </Grid>
         <Grid container className={ classes.footerBar }>

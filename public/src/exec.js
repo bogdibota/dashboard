@@ -8,7 +8,7 @@ const execStatus = require('../api/execStatus');
 const idToPath = (id) => id.replace(/\*/g, '_');
 
 module.exports = {
-  runAction: async (id, action, onStatusChange) => {
+  runAction: async (id, action, runArgs, onStatusChange) => {
     const dataFolder = path.join(app.getPath('userData'), 'data', idToPath(id));
     const batFileName = 'run.bat';
     const batFile = path.join(dataFolder, batFileName);
@@ -16,7 +16,7 @@ module.exports = {
     await afs.mkdir(dataFolder);
     await afs.writeFile(batFile, `${ action }\n`);
 
-    const commandProc = spawn(`"${ batFile }"`, [], {shell: true, cwd: dataFolder});
+    const commandProc = spawn(`"${ batFile }"`, runArgs.split(','), {shell: true, cwd: dataFolder});
 
     onStatusChange({id, status: execStatus.RUNNING});
 

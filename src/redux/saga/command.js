@@ -17,9 +17,9 @@ function* create({isFolder, name}) {
   }
 }
 
-function* update({label, action, id}) {
+function* update({label, action, runArgs, id}) {
   const selectedCommand = (yield select(({command: {selectedCommand}}) => selectedCommand)) || {id: 'ROOT'};
-  const result = yield call(updateCommand, {label, action, id});
+  const result = yield call(updateCommand, {label, action, runArgs, id});
   if (result.error) {
     yield put(command.update.error.create({errorMessage: 'Error while updating command.'}));
   } else {
@@ -30,6 +30,7 @@ function* update({label, action, id}) {
       ...selectedCommand,
       label,
       action,
+      runArgs,
       id: [ ...idFragments.slice(0, idFragments.length - 2), label ].join('*'),
     };
 
